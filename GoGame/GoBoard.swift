@@ -53,7 +53,8 @@ public class GoBoard{
         }
     }
     
-    public func removeStone(x: Int, y: Int) {
+    public func removeStone(x: Int, y: Int) -> Result {
         goBoard[x][y] = GoPoint.Empty
+        return .Success
     }
 }
