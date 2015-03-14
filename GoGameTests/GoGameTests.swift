@@ -104,15 +104,15 @@ class GoGameTests: XCTestCase {
     
     func posBlack(space: GoBoard.GoPoint) -> Bool {
         switch(space) {
-        case .Black: return true
-        default: return false
+            case .Black: return true
+            default: return false
         }
     }
     
     func posWhite(space: GoBoard.GoPoint) -> Bool {
         switch(space) {
-        case .White: return true
-        default: return false
+            case .White: return true
+            default: return false
         }
     }
 }
