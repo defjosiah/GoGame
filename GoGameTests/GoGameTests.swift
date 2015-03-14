@@ -25,7 +25,7 @@ class GoGameTests: XCTestCase {
         var mtGamePoint = GoBoard.GoPoint.Empty
         for row in gameBoard.goBoard {
             for space in row {
-                XCTAssert(space == mtGamePoint)
+                XCTAssert(posEmpty(space))
             }
         }
     }
@@ -35,19 +35,19 @@ class GoGameTests: XCTestCase {
         let board = game.goBoard
         for x in 0...board.count-1 {
             for y in 0...board.count-1 {
-                game.placeStone(x, y: y, stone: GoBoard.GoPoint.Black)
+                game.placeStone(GoBoard.GoPoint.Black(x, y))
             }
         }
         
         for x in 0...board.count-1 {
             for y in 0...board.count-1 {
-                XCTAssert(game.goBoard[x][y] == GoBoard.GoPoint.Black)
+                XCTAssert(posBlack(game.goBoard[x][y]))
             }
         }
         
         for x in 0...board.count-1 {
             for y in 0...board.count-1 {
-                let out = game.placeStone(x, y: y, stone: GoBoard.GoPoint.White)
+                let out = game.placeStone(GoBoard.GoPoint.White(x,y))
                 switch(out) {
                     case .Success:
                         XCTFail("Place Stone should've failed")
@@ -64,7 +64,7 @@ class GoGameTests: XCTestCase {
         let boardSize = game.goBoard.count
         for x in 0...boardSize-1 {
             for y in 0...boardSize-1 {
-                switch(game.placeStone(x, y: y, stone: GoBoard.GoPoint.Black)) {
+                switch(game.placeStone(GoBoard.GoPoint.Black(x,y))) {
                     case .Error(let error):
                         println(error)
                         XCTFail("Place shouldn't fail")
@@ -89,10 +89,30 @@ class GoGameTests: XCTestCase {
         var mtGamePoint = GoBoard.GoPoint.Empty
         for row in game.goBoard {
             for space in row {
-                XCTAssert(space == mtGamePoint)
+                XCTAssert(posEmpty(space))
             }
         }
         
     }
     
+    func posEmpty(space: GoBoard.GoPoint) -> Bool {
+        switch(space) {
+            case .Empty: return true
+            default: return false
+        }
+    }
+    
+    func posBlack(space: GoBoard.GoPoint) -> Bool {
+        switch(space) {
+        case .Black: return true
+        default: return false
+        }
+    }
+    
+    func posWhite(space: GoBoard.GoPoint) -> Bool {
+        switch(space) {
+        case .White: return true
+        default: return false
+        }
+    }
 }
