@@ -59,5 +59,40 @@ class GoGameTests: XCTestCase {
         println(game.goBoard)
     }
     
+    func testRemoveStone() {
+        let game = GoBoard(gridSize: 3)
+        let boardSize = game.goBoard.count
+        for x in 0...boardSize-1 {
+            for y in 0...boardSize-1 {
+                switch(game.placeStone(x, y: y, stone: GoBoard.GoPoint.Black)) {
+                    case .Error(let error):
+                        println(error)
+                        XCTFail("Place shouldn't fail")
+                    case .Success:
+                        break
+                }
+            }
+        }
+        
+        for x in 0...boardSize-1 {
+            for y in 0...boardSize-1 {
+                switch(game.removeStone(x, y: y)) {
+                    case .Success: break
+                    case .Error(let error):
+                        println(error)
+                        XCTFail("Remove shouldn't fail")
+                }
+            }
+        }
+        
+        //Check if everything is empty now
+        var mtGamePoint = GoBoard.GoPoint.Empty
+        for row in game.goBoard {
+            for space in row {
+                XCTAssert(space == mtGamePoint)
+            }
+        }
+        
+    }
     
 }
