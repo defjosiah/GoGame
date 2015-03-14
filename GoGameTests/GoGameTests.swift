@@ -30,4 +30,23 @@ class GoGameTests: XCTestCase {
         }
     }
     
+    func testPlaceStone() {
+        let game = GoBoard(gridSize: 3)
+        let board = game.goBoard
+        for x in 0...board.count-1 {
+            for y in 0...board.count-1 {
+                game.placeStone(x, y: y, stone: GoBoard.GoPoint.Black)
+            }
+        }
+        
+        for x in 0...board.count-1 {
+            for y in 0...board.count-1 {
+                XCTAssert(game.goBoard[x][y] == GoBoard.GoPoint.Black)
+            }
+        }
+        
+        println(game.goBoard)
+    }
+    
+    
 }
