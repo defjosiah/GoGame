@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class GoBoard{
+public class GoBoard {
     
     public enum GoPoint: Printable {
         case Black
