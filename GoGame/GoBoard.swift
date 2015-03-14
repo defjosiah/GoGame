@@ -37,4 +37,17 @@ public class GoBoard{
                                         repeatedValue:GoPoint.Empty))
         
     }
+    
+    public func placeStone(x: Int, y: Int, stone: GoPoint) {
+        if(goBoard[x][y] == GoPoint.Empty) {
+            goBoard[x][y] = stone
+        }
+        else {
+            println("Error with placing stone (\(stone)) at (\(x), \(y))")
+        }
+    }
+    
+    public func removeStone(x: Int, y: Int) {
+        goBoard[x][y] = GoPoint.Empty
+    }
 }
