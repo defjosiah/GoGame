@@ -6,30 +6,27 @@
 //  Copyright (c) 2015 Josiah Grace. All rights reserved.
 //
 
-import UIKit
 import XCTest
+import GoGame
 
 class GoGameTests: XCTestCase {
     
     override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        println("Test start")
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+        println("Test End")
     }
     
-    func testExample() {
+    func testBoardInitialization() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
+        let gameBoard = GoBoard(gridSize : 3)
+        var mtGamePoint = GoBoard.GoPoint.Empty
+        for row in gameBoard.goBoard {
+            for space in row {
+                XCTAssert(space == mtGamePoint)
+            }
         }
     }
     
