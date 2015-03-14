@@ -11,8 +11,8 @@ import Foundation
 public class GoBoard {
     
     public enum GoPoint: Printable {
-        case Black
-        case White
+        case Black(Int, Int)
+        case White(Int, Int)
         case Empty
         
         public var description : String {
@@ -25,6 +25,14 @@ public class GoBoard {
                     case .Empty:
                         return "Empty"
                 }
+            }
+        }
+        
+        public func getPos() -> (Int, Int)? {
+            switch(self) {
+            case .Black(let x, let y) : return (x, y)
+            case .White(let x, let y) : return (x, y)
+            case .Empty : return nil
             }
         }
     }
@@ -43,18 +51,38 @@ public class GoBoard {
         
     }
     
-    public func placeStone(x: Int, y: Int, stone: GoPoint) -> Result {
-        if(goBoard[x][y] == GoPoint.Empty) {
-            goBoard[x][y] = stone
-            return .Success
-        }
-        else {
-            return .Error("Error with placing stone (\(stone)) at (\(x), \(y))")
+    /**
+    * Place a stone on the board. Return a success or failure.
+    */
+    public func placeStone(stone: GoPoint) -> Result {
+        switch(stone) {
+            case .Black, .White:
+                let (x, y) = stone.getPos()!
+                if(posEmpty(x, y: y)) {
+                    goBoard[x][y] = stone
+                    return .Success
+                }
+                else {
+                    return .Error("Error with placing stone (\(stone)) at (\(x), \(y))")
+                }
+            case .Empty:
+                return .Success
         }
     }
     
+    /**
+    * Remove a stone from the board. Eventually return errors, at the moment,
+    * it will always be a success.
+    */
     public func removeStone(x: Int, y: Int) -> Result {
         goBoard[x][y] = GoPoint.Empty
         return .Success
+    }
+    
+    func posEmpty(x: Int, y: Int) -> Bool {
+        switch(goBoard[x][y]) {
+            case .Empty: return true
+            default: return false
+        }
     }
 }
