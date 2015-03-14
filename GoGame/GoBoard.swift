@@ -29,6 +29,11 @@ public class GoBoard{
         }
     }
     
+    public enum Result {
+        case Success
+        case Error(String)
+    }
+    
     public var goBoard: [[GoPoint]]
     
     public init(gridSize: Int) {
@@ -38,12 +43,13 @@ public class GoBoard{
         
     }
     
-    public func placeStone(x: Int, y: Int, stone: GoPoint) {
+    public func placeStone(x: Int, y: Int, stone: GoPoint) -> Result {
         if(goBoard[x][y] == GoPoint.Empty) {
             goBoard[x][y] = stone
+            return .Success
         }
         else {
-            println("Error with placing stone (\(stone)) at (\(x), \(y))")
+            return .Error("Error with placing stone (\(stone)) at (\(x), \(y))")
         }
     }
     

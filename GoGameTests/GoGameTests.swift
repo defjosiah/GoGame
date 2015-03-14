@@ -45,6 +45,17 @@ class GoGameTests: XCTestCase {
             }
         }
         
+        for x in 0...board.count-1 {
+            for y in 0...board.count-1 {
+                let out = game.placeStone(x, y: y, stone: GoBoard.GoPoint.White)
+                switch(out) {
+                    case .Success:
+                        XCTFail("Place Stone should've failed")
+                    case .Error(let error) : println(error)
+                }
+            }
+        }
+        
         println(game.goBoard)
     }
     
